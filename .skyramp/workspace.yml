@@ -1,0 +1,23 @@
+# Skyramp Workspace Configuration
+workspace:
+  repoName: shinychimra07/microservices-demo-testb
+  repoUrl: https://github.com/shinychimra07/microservices-demo-testb
+metadata:
+  schemaVersion: v1
+  mcpVersion: 0.2.0-rc.1
+  executorVersion: v1.3.24
+  createdAt: "2026-05-19T18:20:54.960Z"
+  updatedAt: "2026-05-19T18:20:54.967Z"
+services:
+  - serviceName: microservices-demo-testb-frontend
+    language: typescript
+    framework: playwright
+    testDirectory: tests/skyramp
+    api:
+      authType: none
+      authHeader: ""
+      baseUrl: http://localhost:8080
+    runtimeDetails:
+      serverStartCommand: docker compose -f deployment-testbot/boutique/docker-compose.yml up -d
+      runtime: docker
+      dockerNetwork: boutique_default
