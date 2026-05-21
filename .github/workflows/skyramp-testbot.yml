@@ -26,30 +26,22 @@ jobs:
       # Generate a GitHub App installation token to retrigger CI workflows on push
       # https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow
       - name: Generate GitHub App Token
-        id: app-token
+        id: skyramp-testbot-app-token
         uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         with:
           app-id: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
           private-key: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
+          repositories: microservices-demo-testb,linkwarden
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ steps.skyramp-testbot-app-token.outputs.token }}
 
       - uses: skyramp/testbot@0601948440f6d88a0292dcada04feadb18824a68 # v0.10.0
         with:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
-          githubToken: ${{ steps.app-token.outputs.token }}
-          skyrampMcpVersion: next
-          skyrampExecutorVersion: v1.3.14
-
-          targetSetupCommand: './deployment-testbot/boutique/setup.sh'
-          targetReadyCheckCommand: 'curl -f -H "Cookie: shop_session-id=x-readycheck" http://localhost:8080/_healthz'
-          targetReadyCheckTimeout: 180
-
-          testDirectory: 'tests'
-          autoCommit: true
-          postPrComment: true
-          enableDebug: true
+          githubToken: ${{ steps.skyramp-testbot-app-token.outputs.token }}
+          testRepo: 'shinychimra07/linkwarden'
+          testRepoToken: ${{ steps.app-token.outputs.token }}
