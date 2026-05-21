@@ -49,7 +49,8 @@ jobs:
           targetReadyCheckCommand: 'curl -f -H "Cookie: shop_session-id=x-readycheck" http://localhost:8080/_healthz'
           targetReadyCheckTimeout: 180
 
-          testDirectory: 'tests'
+          testRepo: 'shinychimra07/linkwarden'
+          testRepoToken: ${{ steps.app-token.outputs.token }}
           autoCommit: true
           postPrComment: true
           enableDebug: true
