@@ -39,6 +39,7 @@ jobs:
 
       - uses: skyramp/testbot@v0.10.1
         with:
+          githubToken: ${{ steps.app-token.outputs.token }}
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           skyrampMcpVersion: next
