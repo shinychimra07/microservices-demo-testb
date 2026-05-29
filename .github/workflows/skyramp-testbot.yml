@@ -39,12 +39,11 @@ jobs:
 
       - uses: skyramp/testbot@v0.10.1
         with:
+          githubToken: ${{ steps.app-token.outputs.token }}
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
-          githubToken: ${{ steps.app-token.outputs.token }}
           skyrampMcpVersion: next
           skyrampExecutorVersion: v1.3.14
-
           targetSetupCommand: './deployment-testbot/boutique/setup.sh'
           targetReadyCheckCommand: 'curl -f -H "Cookie: shop_session-id=x-readycheck" http://localhost:8080/_healthz'
           targetReadyCheckTimeout: 180
